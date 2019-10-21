@@ -3,6 +3,8 @@ Expanded CSS Whack-a-Mole
 
 "Expanded Whack-a-Mole." - Added some randomness and variable to change the speed.
 
+Github: https://github.com/alpiepho/css-whack-a-mole
+
 Hope to add:
 - selector for speed
 - change number of moles
