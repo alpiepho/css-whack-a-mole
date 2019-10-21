@@ -1,0 +1,14 @@
+Expanded CSS Whack-a-Mole
+
+
+"Expanded Whack-a-Mole." - Added some randomness and variable to change the speed.
+
+Hope to add:
+- selector for speed
+- change number of moles
+- possibly add levels
+- possibly add high score?
+
+Game of Whack-a-Mole. Developed using CSS and HTML, and not a single line of JS.: https://codepen.io/alvaromontoro/pen/MWWKKMN
+
+Inspired by the game developed by Chris Ferdinandi: https://twitter.com/ChrisFerdinandi/status/1182751341925601285?s=20

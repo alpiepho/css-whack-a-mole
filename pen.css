@@ -1,5 +1,19 @@
 
+/* CHANGE to vary the challenge :) */
+$totalTime: 10; /* in seconds */
+$moleShowKeys: moleShowNormal; /* moleShowLong, moleShowNormal, moleShowShort */
+
+/* 
+TODO:
+- can we vary the number of moles?
+- can we add levels, say slow, medium, fast?
+- can we vary the number of moles?
+- can we add selector for settings and start game?
+*/
+$totalMoles: 20;
+
 /* Game timer + animation */
+/*
 @keyframes timer {
   0% { --timer: 20; }
   5% { --timer: 19; }
@@ -23,6 +37,7 @@
   95% { --timer: 1; }
   100% { --timer: 0; }
 }
+*/
 
 #timer,
 #moles {
@@ -32,7 +47,7 @@
   line-height: 3rem;
   height: 3rem;
   text-align: center;
-  animation: timer 20s linear;
+  animation: timer $totalTime+s linear;
   mix-blend-mode: difference;
   font-size: 2rem;
   width: 100%;
@@ -62,14 +77,14 @@
   top: 0;
   left: 0;
   z-index: -1;
-  animation: timeline 20s linear;
+  animation: timeline $totalTime+s linear;
   animation-fill-mode: forwards;
 }
 
 
 #timer::after {
   counter-reset: timer var(--timer);
-  content: counter(timer);
+  content: ""; /*counter(timer);*/
   font-weight: bold;
 }
 
@@ -118,9 +133,19 @@ box-shadow: inset -1.5vmin -1vmin black, inset 1.5vmin -1vmin black, inset 0 0 0
 }
 */
 
-@keyframes moleShow {
+@keyframes moleShowLong {
+  0%, 4.9999%, 20%, 100% { height: 0%;   }
+  5%, 19.9999% { height:100%;  }
+}
+
+@keyframes moleShowNormal {
   0%, 4.9999%, 10%, 100% { height: 0%;   }
   5%, 9.9999% { height:100%;  }
+}
+
+@keyframes moleShowShort {
+  0%, 4.9999%, 8%, 100% { height: 0%;   }
+  5%, 7.9999% { height:100%;  }
 }
 
 /* This is the actual mole... used an SVG, sorry ;) */
@@ -136,13 +161,14 @@ box-shadow: inset -1.5vmin -1vmin black, inset 1.5vmin -1vmin black, inset 0 0 0
   transform-origin: bottom center;
   transform: translateY(-50%) rotateX(-60deg);
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g fill='none' stroke='black' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'><path fill='brown' d='M 4,102 C 13,62 20,5 47,7 73,8 86,47 95,102' /><path d='M 53,62 C 53,62 53,79 53,79' /><path d='M 27,88 C 41,75 68,77 75,88' /><path fill='%23eeee66' d='M 42,82 C 47,80 59,80 62,81 66,82 63,93 63,93 63,93 53,94 53,92 53,90 52,80 52,80 52,80 53,92 53,92 53,92 43,94 42,92 42,90 41,82 41,82 Z' /><path fill='%23ffffee' d='M 50,53 C 67,72 91,63 88,38 84,13 56,11 48,36 44,21 20,24 18,41 16,57 37,71 50,53' /><circle r='2' cx='35' cy='42' fill='%23000' /><circle r='4' cx='65' cy='41' fill='%23000' /><ellipse rx='10' ry='5' cx='52' cy='56' fill='%23000' /></g></svg>");
-  animation: moleShow 20s linear 2;
+  animation: $moleShowKeys $totalTime+s linear 2;
   animation-fill-mode: forwards;
   z-index: 2;
   transition: all 0.2s;
 }
 
 /* Animate the moles so they show up at different times */
+/*
 #board label[for="mole-0"] { animation-delay: -19s; }
 #board label[for="mole-1"] { animation-delay: -18s; }
 #board label[for="mole-2"] { animation-delay: -17s; }
@@ -163,6 +189,55 @@ box-shadow: inset -1.5vmin -1vmin black, inset 1.5vmin -1vmin black, inset 0 0 0
 #board label[for="mole-17"] { animation-delay: -3.5s; }
 #board label[for="mole-18"] { animation-delay: -3s; }
 #board label[for="mole-19"] { animation-delay: -2s; }
+*/
+
+/* 
+NOTE:
+- delay first mole              (limit largest negative animation delay)
+- time for last mole to be hit  (limit shortest negative animation delay)
+*/
+/* instead of fixed delays, generate random whole and fractions */
+/* in range -1.x to -(totalTime-1).x */
+$delay1: -1*(1 + random($totalTime - 1) + random());
+$delay2: -1*(1 + random($totalTime - 1) + random());
+$delay3: -1*(1 + random($totalTime - 1) + random());
+$delay4: -1*(1 + random($totalTime - 1) + random());
+$delay5: -1*(1 + random($totalTime - 1) + random());
+$delay6: -1*(1 + random($totalTime - 1) + random());
+$delay7: -1*(1 + random($totalTime - 1) + random());
+$delay8: -1*(1 + random($totalTime - 1) + random());
+$delay9: -1*(1 + random($totalTime - 1) + random());
+$delay10: -1*(1 + random($totalTime - 1) + random());
+$delay11: -1*(1 + random($totalTime - 1) + random());
+$delay12: -1*(1 + random($totalTime - 1) + random());
+$delay13: -1*(1 + random($totalTime - 1) + random());
+$delay14: -1*(1 + random($totalTime - 1) + random());
+$delay15: -1*(1 + random($totalTime - 1) + random());
+$delay16: -1*(1 + random($totalTime - 1) + random());
+$delay17: -1*(1 + random($totalTime - 1) + random());
+$delay18: -1*(1 + random($totalTime - 1) + random());
+$delay19: -1*(1 + random($totalTime - 1) + random());
+$delay20: -1*(1 + random($totalTime - 1) + random());
+#board label[for="mole-0"] { animation-delay: $delay1+s; }
+#board label[for="mole-1"] { animation-delay: $delay2+s; }
+#board label[for="mole-2"] { animation-delay: $delay3+s; }
+#board label[for="mole-3"] { animation-delay: $delay4+s; }
+#board label[for="mole-4"] { animation-delay: $delay5+s; }
+#board label[for="mole-5"] { animation-delay: $delay6+s; }
+#board label[for="mole-6"] { animation-delay: $delay7+s; }
+#board label[for="mole-7"] { animation-delay: $delay8+s; }
+#board label[for="mole-8"] { animation-delay: $delay9+s; }
+#board label[for="mole-9"] { animation-delay: $delay10+s; }
+#board label[for="mole-10"] { animation-delay: $delay11+s; }
+#board label[for="mole-11"] { animation-delay: $delay12+s; }
+#board label[for="mole-12"] { animation-delay: $delay13+s; }
+#board label[for="mole-13"] { animation-delay: $delay14+s; }
+#board label[for="mole-14"] { animation-delay: $delay15+s; }
+#board label[for="mole-15"] { animation-delay: $delay16+s; }
+#board label[for="mole-16"] { animation-delay: $delay17+s; }
+#board label[for="mole-17"] { animation-delay: $delay18+s; }
+#board label[for="mole-18"] { animation-delay: $delay19+s; }
+#board label[for="mole-19"] { animation-delay: $delay20+s; }
 
 /* hide the moles if their checkbox is checked */
 #mole-0:checked ~ #perspective [for="mole-0"],
@@ -206,6 +281,11 @@ body .number::after {
   font-weight: bold;
 }
 
+body .total::after {
+  content: "#{$totalMoles}";
+  font-weight: bold;
+}
+
 /* hide inputs */
 input {
   position: absolute;
@@ -238,7 +318,7 @@ input {
   background: rgba(255, 255, 255, 0.9);
   animation: showResults 0.25s linear;
   animation-fill-mode: forwards;
-  animation-delay: 21s;
+  animation-delay: ($totalTime * 1.1)+s;
 }
 
 /* decorative */
