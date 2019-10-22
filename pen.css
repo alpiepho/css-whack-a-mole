@@ -2,10 +2,11 @@
 /* CHANGE to vary the challenge :) */
 $totalTime: 30; /* in seconds */
 $moleShowKeys: moleShowNormal; /* moleShowLong, moleShowNormal, moleShowShort */
-$totalMoles: 5; /* <= 30 */
+$totalMoles: 20; /* <= 30 */
 
 /* 
 TODO:
+- refactor original game timer
 - can we add levels, say slow, medium, fast?
 - can we add selector for settings and start game?
 */
@@ -166,29 +167,6 @@ box-shadow: inset -1.5vmin -1vmin black, inset 1.5vmin -1vmin black, inset 0 0 0
 }
 
 /* Animate the moles so they show up at different times */
-/*
-#board label[for="mole-0"] { animation-delay: -19s; }
-#board label[for="mole-1"] { animation-delay: -18s; }
-#board label[for="mole-2"] { animation-delay: -17s; }
-#board label[for="mole-3"] { animation-delay: -16s; }
-#board label[for="mole-4"] { animation-delay: -16s; }
-#board label[for="mole-5"] { animation-delay: -15s; }
-#board label[for="mole-6"] { animation-delay: -14s; }
-#board label[for="mole-7"] { animation-delay: -13s; }
-#board label[for="mole-8"] { animation-delay: -12s; }
-#board label[for="mole-9"] { animation-delay: -11s; }
-#board label[for="mole-10"] { animation-delay: -10s; }
-#board label[for="mole-11"] { animation-delay: -9s; }
-#board label[for="mole-12"] { animation-delay: -8s; }
-#board label[for="mole-13"] { animation-delay: -7.5s; }
-#board label[for="mole-14"] { animation-delay: -7s; }
-#board label[for="mole-15"] { animation-delay: -6s; }
-#board label[for="mole-16"] { animation-delay: -4s; }
-#board label[for="mole-17"] { animation-delay: -3.5s; }
-#board label[for="mole-18"] { animation-delay: -3s; }
-#board label[for="mole-19"] { animation-delay: -2s; }
-*/
-
 /* 
 NOTE:
 - delay first mole              (limit largest negative animation delay)
@@ -196,82 +174,16 @@ NOTE:
 */
 /* instead of fixed delays, generate random whole and fractions */
 /* in range -1.x to -(totalTime-1).x */
-/*
-$delay1: (-1*(1 + random($totalTime - 1) + random()));
-$delay2: -1*(1 + random($totalTime - 1) + random());
-$delay3: -1*(1 + random($totalTime - 1) + random());
-$delay4: -1*(1 + random($totalTime - 1) + random());
-$delay5: -1*(1 + random($totalTime - 1) + random());
-$delay6: -1*(1 + random($totalTime - 1) + random());
-$delay7: -1*(1 + random($totalTime - 1) + random());
-$delay8: -1*(1 + random($totalTime - 1) + random());
-$delay9: -1*(1 + random($totalTime - 1) + random());
-$delay10: -1*(1 + random($totalTime - 1) + random());
-$delay11: -1*(1 + random($totalTime - 1) + random());
-$delay12: -1*(1 + random($totalTime - 1) + random());
-$delay13: -1*(1 + random($totalTime - 1) + random());
-$delay14: -1*(1 + random($totalTime - 1) + random());
-$delay15: -1*(1 + random($totalTime - 1) + random());
-$delay16: -1*(1 + random($totalTime - 1) + random());
-$delay17: -1*(1 + random($totalTime - 1) + random());
-$delay18: -1*(1 + random($totalTime - 1) + random());
-$delay19: -1*(1 + random($totalTime - 1) + random());
-$delay20: -1*(1 + random($totalTime - 1) + random());
-#board label[for="mole-0"] { animation-delay: $delay1+s; }
-#board label[for="mole-1"] { animation-delay: $delay2+s; }
-#board label[for="mole-2"] { animation-delay: $delay3+s; }
-#board label[for="mole-3"] { animation-delay: $delay4+s; }
-#board label[for="mole-4"] { animation-delay: $delay5+s; }
-#board label[for="mole-5"] { animation-delay: $delay6+s; }
-#board label[for="mole-6"] { animation-delay: $delay7+s; }
-#board label[for="mole-7"] { animation-delay: $delay8+s; }
-#board label[for="mole-8"] { animation-delay: $delay9+s; }
-#board label[for="mole-9"] { animation-delay: $delay10+s; }
-#board label[for="mole-10"] { animation-delay: $delay11+s; }
-#board label[for="mole-11"] { animation-delay: $delay12+s; }
-#board label[for="mole-12"] { animation-delay: $delay13+s; }
-#board label[for="mole-13"] { animation-delay: $delay14+s; }
-#board label[for="mole-14"] { animation-delay: $delay15+s; }
-#board label[for="mole-15"] { animation-delay: $delay16+s; }
-#board label[for="mole-16"] { animation-delay: $delay17+s; }
-#board label[for="mole-17"] { animation-delay: $delay18+s; }
-#board label[for="mole-18"] { animation-delay: $delay19+s; }
-#board label[for="mole-19"] { animation-delay: $delay20+s; }
-*/
-/* hide all moles */
+/* 1) hide all moles */
 @for $i from 1 through 30 {
   #board label[for="mole-#{$i}"] { opacity: 0 }
 }
-/* set delay and opacity of active moles */
+/* 2) set delay and opacity of active moles */
 @for $i from 1 through $totalMoles {
   #board label[for="mole-#{$i}"] { animation-delay: (-1*(1 + random($totalTime - 1) + random()))+s; opacity: 1 }
 }
 
-/* hide the moles if their checkbox is checked */
-/*
-#mole-0:checked ~ #perspective [for="mole-0"],
-#mole-1:checked ~ #perspective [for="mole-1"],
-#mole-2:checked ~ #perspective [for="mole-2"],
-#mole-3:checked ~ #perspective [for="mole-3"],
-#mole-4:checked ~ #perspective [for="mole-4"],
-#mole-5:checked ~ #perspective [for="mole-5"],
-#mole-6:checked ~ #perspective [for="mole-6"],
-#mole-7:checked ~ #perspective [for="mole-7"],
-#mole-8:checked ~ #perspective [for="mole-8"],
-#mole-9:checked ~ #perspective [for="mole-9"],
-#mole-10:checked ~ #perspective [for="mole-10"],
-#mole-11:checked ~ #perspective [for="mole-11"],
-#mole-12:checked ~ #perspective [for="mole-12"],
-#mole-13:checked ~ #perspective [for="mole-13"],
-#mole-14:checked ~ #perspective [for="mole-14"],
-#mole-15:checked ~ #perspective [for="mole-15"],
-#mole-16:checked ~ #perspective [for="mole-16"],
-#mole-17:checked ~ #perspective [for="mole-17"],
-#mole-18:checked ~ #perspective [for="mole-18"],
-#mole-19:checked ~ #perspective [for="mole-19"] { 
-  transform: translateY(-50%) rotateX(-60deg) scale(0);
-}
-*/
+/* hide the active moles if their checkbox is checked */
 @for $i from 1 through $totalMoles {
   #mole-#{$i}:checked ~ #perspective [for="mole-#{$i}"] { 
     transform: translateY(-50%) rotateX(-60deg) scale(0);
@@ -354,6 +266,6 @@ input {
    transform-origin: top center;
   color: #eef7ff;
   transform: rotateX(-60deg) translate(0, 1vmin) ;
-  font-size: 3vmin;
+  font-size: 2vmin;
   text-align: center; 
 }
