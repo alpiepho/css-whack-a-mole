@@ -1,16 +1,14 @@
 
 /* CHANGE to vary the challenge :) */
-$totalTime: 10; /* in seconds */
+$totalTime: 30; /* in seconds */
 $moleShowKeys: moleShowNormal; /* moleShowLong, moleShowNormal, moleShowShort */
+$totalMoles: 5; /* <= 30 */
 
 /* 
 TODO:
-- can we vary the number of moles?
 - can we add levels, say slow, medium, fast?
-- can we vary the number of moles?
 - can we add selector for settings and start game?
 */
-$totalMoles: 20;
 
 /* Game timer + animation */
 /*
@@ -198,7 +196,8 @@ NOTE:
 */
 /* instead of fixed delays, generate random whole and fractions */
 /* in range -1.x to -(totalTime-1).x */
-$delay1: -1*(1 + random($totalTime - 1) + random());
+/*
+$delay1: (-1*(1 + random($totalTime - 1) + random()));
 $delay2: -1*(1 + random($totalTime - 1) + random());
 $delay3: -1*(1 + random($totalTime - 1) + random());
 $delay4: -1*(1 + random($totalTime - 1) + random());
@@ -238,8 +237,18 @@ $delay20: -1*(1 + random($totalTime - 1) + random());
 #board label[for="mole-17"] { animation-delay: $delay18+s; }
 #board label[for="mole-18"] { animation-delay: $delay19+s; }
 #board label[for="mole-19"] { animation-delay: $delay20+s; }
+*/
+/* hide all moles */
+@for $i from 1 through 30 {
+  #board label[for="mole-#{$i}"] { opacity: 0 }
+}
+/* set delay and opacity of active moles */
+@for $i from 1 through $totalMoles {
+  #board label[for="mole-#{$i}"] { animation-delay: (-1*(1 + random($totalTime - 1) + random()))+s; opacity: 1 }
+}
 
 /* hide the moles if their checkbox is checked */
+/*
 #mole-0:checked ~ #perspective [for="mole-0"],
 #mole-1:checked ~ #perspective [for="mole-1"],
 #mole-2:checked ~ #perspective [for="mole-2"],
@@ -262,6 +271,13 @@ $delay20: -1*(1 + random($totalTime - 1) + random());
 #mole-19:checked ~ #perspective [for="mole-19"] { 
   transform: translateY(-50%) rotateX(-60deg) scale(0);
 }
+*/
+@for $i from 1 through $totalMoles {
+  #mole-#{$i}:checked ~ #perspective [for="mole-#{$i}"] { 
+    transform: translateY(-50%) rotateX(-60deg) scale(0);
+  }
+}
+
 
 /* counter for score keeping */
 @import url('https://fonts.googleapis.com/css?family=Molengo&display=swap');
@@ -332,4 +348,12 @@ input {
   padding: 2vmin;
   font-size: 7vmin;
   text-align: center;
+}
+
+#subnote {
+   transform-origin: top center;
+  color: #eef7ff;
+  transform: rotateX(-60deg) translate(0, 1vmin) ;
+  font-size: 3vmin;
+  text-align: center; 
 }
